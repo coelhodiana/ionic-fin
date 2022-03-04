@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>registro-gastos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card class="ion-padding">
+          <form [formGroup]="transacaoForm">
+            <ion-card-header>
+              <ion-card-title color="primary"
+                >Registro de transação</ion-card-title
+              >
+            </ion-card-header>
+            <ion-item>
+              <ion-label position="floating">Valor</ion-label>
+              <ion-input type="number" formControlName="valor"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Tipo de transaçao</ion-label>
+              <ion-select interface="popover" formControlName="tipo">
+                <ion-select-option value="gasto" selected
+                  >Gasto</ion-select-option
+                >
+                <ion-select-option value="entrada">entrada</ion-select-option>
+                <ion-select-option value="investimento"
+                  >investimento</ion-select-option
+                >
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Identificação</ion-label>
+              <ion-input type="text" formControlName="descricao"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input
+                formControlName="dataInclusao"
+                [value]="dateValue2"
+                placeholder="Data"
+              ></ion-input>
+              <ion-button fill="clear" id="open-date-input-2">
+                <ion-icon icon="calendar"></ion-icon>
+              </ion-button>
+              <ion-popover trigger="open-date-input-2" show-backdrop="false">
+                <ng-template>
+                  <ion-datetime
+                    #popoverDatetime2
+                    presentation="time-date"
+                    (ionChange)="dateValue2 = formatDate(popoverDatetime2.value)"
+                  ></ion-datetime>
+                </ng-template>
+              </ion-popover>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Descrição</ion-label>
+              <ion-textarea></ion-textarea>
+            </ion-item>
+
+            <div class="ion-text-right">
+              <ion-button color="dark" fill="clear">cancelar</ion-button>
+              <ion-button (click)="onSalvarTransacao()"
+                ><ion-icon slot="start" name="save"></ion-icon
+                >salvar</ion-button
+              >
+            </div>
+          </form>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
