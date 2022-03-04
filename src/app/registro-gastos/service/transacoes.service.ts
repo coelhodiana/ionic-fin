@@ -41,8 +41,6 @@ export class TransacoesService {
   }
 
   deletarTransacao(id: string): Observable<any> {
-    console.log(id);
-
     return this.http.delete<Transacao>(`${environment.api}/transacoes/${id}`);
   }
 }
