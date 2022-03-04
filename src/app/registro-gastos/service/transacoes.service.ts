@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { Transacao } from '../shared/transacao';
+import { environment } from './../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -29,16 +30,19 @@ export class TransacoesService {
   }
 
   getTransacoes(): Observable<Array<Transacao>> {
-    return this.http.get<Transacao[]>(this.url);
+    return this.http.get<Transacao[]>(`${environment.api}/transacoes`);
   }
 
   postTransacao(transacao: Transacao): Observable<any> {
-    return this.http.post<Transacao>(this.url, transacao);
+    return this.http.post<Transacao>(
+      `${environment.api}/transacoes`,
+      transacao
+    );
   }
 
   deletarTransacao(id: string): Observable<any> {
     console.log(id);
 
-    return this.http.delete<Transacao>(`${this.url}/${id}`);
+    return this.http.delete<Transacao>(`${environment.api}/transacoes/${id}`);
   }
 }
