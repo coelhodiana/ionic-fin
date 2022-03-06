@@ -21,9 +21,9 @@ export class RegistroGastosPage implements OnInit, OnDestroy {
   transacoes$ = new BehaviorSubject<Transacao[]>([]);
 
   transacaoForm = this.fb.group({
-    id: [0],
+    id: [],
     tipo: ['gasto', Validators.required],
-    valor: [null, Validators.required],
+    valor: [0, Validators.required],
     dataInclusao: [''],
     descricao: [''],
   });
@@ -35,7 +35,6 @@ export class RegistroGastosPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.transacoesService.getTransacoes().subscribe((transacoes) => {
-      console.log(transacoes);
       this.transacoesService.atualizarListaTransacoes(transacoes);
     });
 
@@ -56,9 +55,21 @@ export class RegistroGastosPage implements OnInit, OnDestroy {
     console.log(this.transacaoForm.value);
     this.transacoesService
       .postTransacao(this.transacaoForm.value)
-      .subscribe((transacao) => {
-        console.log(transacao);
-      });
+      .pipe(
+        tap((res) => {
+          this.transacaoForm.reset();
+          alert(
+            `Transação no valor de R$ ${
+              res.valor / 100
+            } registrada com sucesso!`
+          );
+        }),
+        catchError((err) => {
+          alert('Erro ao salvar transação...');
+          return of(err);
+        })
+      )
+      .subscribe();
   }
 
   deletarTransacao(id: string) {
