@@ -1,7 +1,11 @@
 export interface Transacao {
   _id: string;
-  tipo: string;
   valor: number;
-  dataInclusao: Date;
+  tipo: string;
+  identificacao: string;
   descricao: string;
+  data: Date;
+  dataInclusao: Date;
+  _userId: string;
 }
+

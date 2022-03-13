@@ -15,8 +15,12 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'autenticacao',
+    loadChildren: () => import('./autenticacao/autenticacao.module').then( m => m.AutenticacaoPageModule),
+  },
+  {
     path: '',
-    redirectTo: 'registro',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
 ];

@@ -3,14 +3,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { Transacao } from '../shared/transacao';
+import { environment } from './../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TransacoesService {
   listaTransacoes$ = new BehaviorSubject<Transacao[]>([]);
-
-  url = 'http://localhost:3000/transacoes';
 
   constructor(private http: HttpClient) {}
 
@@ -28,17 +27,15 @@ export class TransacoesService {
     return this.listaTransacoes$;
   }
 
-  getTransacoes(): Observable<Array<Transacao>> {
-    return this.http.get<Transacao[]>(this.url);
+  getTransacoes(): Observable<Transacao[]> {
+    return this.http.get<Transacao[]>(`${environment.api}/transacoes`);
   }
 
   postTransacao(transacao: Transacao): Observable<any> {
-    return this.http.post<Transacao>(this.url, transacao);
+    return this.http.post<Transacao>(`${environment.api}/transacoes`, transacao);
   }
 
   deletarTransacao(id: string): Observable<any> {
-    console.log(id);
-
-    return this.http.delete<Transacao>(`${this.url}/${id}`);
+    return this.http.delete<Transacao>(`${environment.api}/transacoes/${id}`);
   }
 }

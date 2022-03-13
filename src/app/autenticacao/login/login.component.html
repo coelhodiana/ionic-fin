@@ -1,0 +1,47 @@
+<form [formGroup]="formularioLogin">
+  <ion-card-header>
+    <ion-card-title color="primary">Login</ion-card-title>
+  </ion-card-header>
+  <ion-item>
+    <ion-label position="floating">E-mail</ion-label>
+
+    <ion-input type="email" formControlName="email" required email></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Senha</ion-label>
+    <ion-input
+      type="password"
+      formControlName="senha"
+      minlength="8"
+      required
+    ></ion-input>
+  </ion-item>
+
+  <div>
+    <ion-button
+      class="ion-margin-top"
+      size="full"
+      fill="clear"
+      [routerLink]="['../recuperar-senha']"
+      >recuperar senha</ion-button
+    >
+    <ion-button
+      class="ion-margin-top ion-activatable ripple-parent"
+      size="large"
+      shape="round"
+      expand="block"
+      (click)="onLogar()"
+      ><ion-icon slot="start" name="log-in-sharp"></ion-icon>entrar
+      <ion-ripple-effect></ion-ripple-effect
+    ></ion-button>
+
+    <ion-button
+      class="ion-margin-top"
+      size="full"
+      color="primary"
+      fill="clear"
+      [routerLink]="['../cadastro']"
+      >criar conta</ion-button
+    >
+  </div>
+</form>
